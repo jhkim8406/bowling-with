@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bowling.mapper.user.UserMapper">
+	
+	<resultMap type="com.bowling.domain.user.UserVO" id="userMap">
+		<result property="userNo" column="user_no"></result>
+		<result property="userId" column="user_id"></result>
+		<result property="userPassword" column="user_password"></result>
+		<result property="userName" column="user_name"></result>
+		<result property="userGender" column="user_gender"></result>
+		<result property="userNickname" column="user_nickname"></result>
+		<result property="userNickimage" column="user_nickimage"></result>
+		<result property="userRole" column="user_role"></result>
+	</resultMap>
+	
+	<select id="getUser" parameterType="String" resultMap="userMap">
+		SELECT 
+			ur.user_no
+		    , user_id
+		    , user_password
+		    , user_name
+		    , user_gender
+		    , user_nickname
+		    , user_nickimage
+		    , role AS user_role
+		FROM 
+			user ur 
+		LEFT OUTER JOIN 
+			role_user ru ON ru.user_no = ur.user_no 
+		LEFT OUTER JOIN 
+			role_name rn ON rn.role_no = ru.role_no 
+		WHERE 
+			user_id = #{userId}
+	</select>
+	
+</mapper>
+
+

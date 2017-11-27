@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bowling.mapper.game.GameMapper">
+	
+	<select id="getGameInfoByMain" parameterType="com.bowling.domain.game.GameVO" resultType="com.bowling.domain.game.GameVO">
+		SELECT
+			user_name,
+			club_name,
+			TRUNCATE(AVG(game_score),1) AS game_avg,
+            COUNT(*) AS game_count,
+            SUM(
+				CASE
+					WHEN game_all_cover = 1 THEN 1 
+                    ELSE 0
+				END
+			) AS game_all_cover,
+            SUM(
+				CASE
+					WHEN game_twohundred_over = 1 THEN 1
+                    ELSE 0
+				END 
+			) AS game_twohundred_over,
+            SUM(
+				CASE
+					WHEN game_score = 300 THEN 1
+                    ELSE 0
+				END
+			) AS game_perfect,
+            MAX(game_score) AS game_high
+		FROM
+			user ur 
+		INNER JOIN
+			club_member cm ON ur.user_no = cm.user_no
+		INNER JOIN
+			club cb ON cb.club_no = cm.club_no
+		INNER JOIN
+			game gm ON ur.user_no = gm.user_no AND cb.club_no = gm.club_no
+		WHERE
+			user_id = #{user_id}
+		GROUP BY
+			ur.user_name, cb.club_name, gm.user_no, gm.club_no;
+	</select>
+	
+	<insert id="insertScoreByExcel" parameterType="com.bowling.domain.game.GameVO">
+		INSERT INTO
+			game (user_no, club_no, shop_no, game_month, game_score, game_all_cover, game_twohundred_over, game_regist_date)
+		VALUES
+			(#{user_no}, #{club_no}, #{shop_no}, #{game_month}, #{game_score}, #{game_all_cover}, #{game_twohundred_over}, #{game_regist_date})
+	</insert>
+	
+</mapper>
+
+
