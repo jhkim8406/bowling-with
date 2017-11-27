@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.bowling.domain.game.GameVO;
 import com.bowling.mapper.game.GameMapper;
 
-@Service("com.bowling.service.UserService")
+@Service("com.bowling.service.GameService")
 public class GameService {
 
 	@Resource(name="com.bowling.mapper.game.GameMapper")

@@ -6,5 +6,5 @@ import com.bowling.domain.user.UserVO;
 
 @Repository("com.bowling.mapper.user.UserMapper")
 public interface UserMapper {
-	public UserVO getUser(String userId); 
+	public UserVO getUser(UserVO userVO); 
 }

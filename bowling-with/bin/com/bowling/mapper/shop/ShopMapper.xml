@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bowling.mapper.shop.ShopMapper">
+	
+	<resultMap type="com.bowling.domain.shop.ShopVO" id="shopMap">
+		<result property="shopNo" column="shop_no"></result>
+		<result property="shopName" column="shop_name"></result>
+		<result property="shopAddress" column="shop_address"></result>
+		<result property="shopDescription" column="shop_description"></result>
+		<result property="shopRegistDate" column="shop_regist_date"></result>
+	</resultMap>
+	
+	<select id="getShop" parameterType="com.bowling.mapper.shop.ShopMapper" resultMap="shopMap">
+		SELECT 
+			shop_no
+			, shop_name
+			, shop_address
+			, shop_description
+			, shop_regist_date
+		FROM 
+			shop
+		WHERE
+			<choose>
+				<when test="shopNo != null and shopNo > 0">
+					shop_no = #{shopNo}
+				</when>
+				<when test="shopName != null">
+					shop_name = #{shopName}
+				</when>
+			</choose> 
+	</select>
+	
+</mapper>
+
+

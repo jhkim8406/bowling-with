@@ -8,46 +8,49 @@ import lombok.Setter;
 @Getter @Setter
 public class GameVO {
 	/* 회원 */
-	private int user_no;
+	private int userNo;
 	
-	private String user_id;
+	private String userId;
 	
-	private String user_name;
+	private String userName;
 	
-	private String user_gender;
+	private String userGender;
 	
-	private String user_nickname;
+	private String userNickname;
 	
-	private String user_nickimage;
+	private String userNickimage;
 	
-	private String user_regist_date;
+	private String userRegistDate;
 	
 	/* 클럽 */
-	private int club_no;
+	private int clubNo;
 	
-	private String club_name;
+	private String clubName;
 	
 	/* 매장 */
-	private int	shop_no;
+	private int	shopNo;
 	
-	private String shop_name;
+	private String shopName;
 	
 	/* 게임 */
-	private int game_month;
+	private int gameType;
 	
-	private int game_score;
+	private int gameMonth;
 	
-	private int game_all_cover;
+	private int gameScore;
 	
-	private int game_twohundred_over;
+	private int gameAllCover;
 	
-	private float game_avg;
+	private int gameTwohundredOver;
 	
-	private int game_perfect;
+	private float gameAvg;
 	
-	private int game_high;
+	private int gamePerfect;
 	
-	private int game_count;
+	private int gameHigh;
 	
-	private String game_regist_date;
+	private int gameCount;
+	
+	private String gameRegistDate;
+
 }

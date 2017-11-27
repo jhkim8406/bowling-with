@@ -14,28 +14,47 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bowling.domain.game.GameVO;
+import com.bowling.domain.shop.ShopVO;
+import com.bowling.domain.user.UserVO;
 import com.bowling.mapper.game.GameMapper;
+import com.bowling.mapper.shop.ShopMapper;
+import com.bowling.mapper.user.UserMapper;
 
-public class DataUpoadByExcel {
+@Controller
+public class CommonController {
+	private static final Logger LOG = LoggerFactory.getLogger(CommonController.class);
 	
 	@Resource(name="com.bowling.mapper.game.GameMapper")
 	GameMapper gameMapper;
 	
+	@Resource(name="com.bowling.mapper.user.UserMapper")
+	UserMapper userMapper;
+	
+	@Resource(name="com.bowling.mapper.shop.ShopMapper")
+	ShopMapper shopMapper;
+	
 	@RequestMapping("/dataUpload")
-	private String getUserNo() throws Exception {
+	private void insertGameInfoByExcel() throws Exception {
 		
-		String fileName = "excel/data.xlsx";
+		System.out.println("upload");
+		
+		String fileName = "static/excel/season3.xlsx";
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		
 		File file = new File(classLoader.getResource(fileName).getFile());
 		
 		FileInputStream fis = null;
 		XSSFWorkbook workbook = null;
 		
-		ArrayList<String> date = new ArrayList<String>();
-		ArrayList<String> shop = new ArrayList<String>();
+		ArrayList<String> dateList = new ArrayList<String>();
+		ArrayList<String> shopList = new ArrayList<String>();
+		ArrayList<String> gameTypeList = new ArrayList<String>();
 		ArrayList<ArrayList<String>> scoreList = new ArrayList<ArrayList<String>>();
 		
 		try {
@@ -83,10 +102,13 @@ public class DataUpoadByExcel {
 								}
 								
 								if(rowIndex == 0) {
-									date.add(cellIndex,value);
+									dateList.add(cellIndex,value);
 								}
 								else if(rowIndex == 1) {
-									shop.add(cellIndex,value);
+									shopList.add(cellIndex,value);
+								}
+								else if(rowIndex == 2) {
+									gameTypeList.add(cellIndex,value);
 								}
 								else {
 									if("false".equals(value)) {
@@ -96,15 +118,20 @@ public class DataUpoadByExcel {
 								}
 							}
 						}
-						if(rowIndex > 1) {
-							scoreList.add(rowIndex-2,score);
+						if(rowIndex > 2) {
+							scoreList.add(rowIndex-3,score);
 						}
 					}
 				}
 			}
 			
-			GameVO user = new GameVO();
+			GameVO game = new GameVO();
+			UserVO user = new UserVO();
+			ShopVO shop = new ShopVO();
 			
+			/*
+			for(int i=0; i<scoreList.size(); i++) {
+			*/
 			for(int i=0; i<scoreList.size(); i++) {
 				String name = "";
 				int game_twohundred_over = 0;
@@ -114,10 +141,14 @@ public class DataUpoadByExcel {
 				for(int j=0; j<scoreList.get(i).size(); j++) {
 					if(j==0) {
 						name = scoreList.get(i).get(j);
-						user.setUser_name(name);
-						//int user_no = gameMapper.getUserNoByName(user);
+						user.setUserName(name);
+						
 						int user_no = 0;
-						user.setUser_no(user_no);
+						
+						if(userMapper.getUser(user) != null) {
+							user_no = userMapper.getUser(user).getUserNo();
+						}
+						game.setUserNo(user_no);
 					}
 					else {
 						if("".equals(scoreList.get(i).get(j))) {
@@ -128,11 +159,11 @@ public class DataUpoadByExcel {
 						}
 						
 						if(score > 0) {
-							user.setUser_name(name);
-							user.setClub_no(1);
-							user.setShop_name(shop.get(j));
-							//user.setShop_no(gameMapper.getShopNoByName(user));
-							user.setGame_all_cover(0);
+							game.setUserName(name);
+							game.setClubNo(1);
+							shop.setShopName(shopList.get(j));
+							game.setShopNo(shopMapper.getShop(shop).getShopNo());
+							game.setGameAllCover(0);
 							if("".equals(scoreList.get(i).get(j))) {
 								score = 0;
 							}
@@ -147,19 +178,37 @@ public class DataUpoadByExcel {
 								game_twohundred_over = 0;
 							}
 							
-							user.setGame_twohundred_over(game_twohundred_over);
-							user.setGame_score(score);
+							if("정기".equals(gameTypeList.get(j))) {
+								game.setGameType(2);
+							}
+							else if("교류".equals(gameTypeList.get(j))) {
+								game.setGameType(3);
+							}
+							else if("대회".equals(gameTypeList.get(j))) {
+								game.setGameType(4);
+							}
+							else {
+								game.setGameType(1);
+							}
 							
-							game_regist_date = date.get(j);
+							game.setGameTwohundredOver(game_twohundred_over);
+							game.setGameScore(score);
+							
+							game_regist_date = dateList.get(j);
 							try {
 								Date _date = new SimpleDateFormat("yyyy-MM-dd").parse(game_regist_date); 
 								int month = (_date.getMonth()+1);
-								user.setGame_month(month);
+								game.setGameMonth(month);
 							}
 							catch(Exception e) {
 								e.printStackTrace();
 							}
-							user.setGame_regist_date(game_regist_date);
+							game.setGameRegistDate(game_regist_date);
+							
+							if(game.getUserNo() > 0) {
+								gameMapper.insertScoreByExcel(game);
+							}
+							
 							//userMapper.insertScoreByExcel(user);
 						}
 					}
@@ -185,7 +234,5 @@ public class DataUpoadByExcel {
 				e.printStackTrace();
 			}
 		}
-		
-		return "count";
 	}
 }

@@ -17,6 +17,7 @@ import com.bowling.mapper.game.GameMapper;
 @Controller
 public class MainController {
 	private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
+	
 	@Resource(name="com.bowling.mapper.game.GameMapper")
 	GameMapper gameMapper;
 	
@@ -27,7 +28,7 @@ public class MainController {
 		
 		GameVO gameVO = new GameVO();
 		
-		gameVO.setUser_id(user.getUsername());
+		gameVO.setUserId(user.getUsername());
 		
 		model.addAttribute("mainInfo",gameMapper.getGameInfoByMain(gameVO));
 		

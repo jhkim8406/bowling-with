@@ -14,7 +14,7 @@
 		<result property="userRole" column="user_role"></result>
 	</resultMap>
 	
-	<select id="getUser" parameterType="String" resultMap="userMap">
+	<select id="getUser" parameterType="com.bowling.mapper.user.UserMapper" resultMap="userMap">
 		SELECT 
 			ur.user_no
 		    , user_id
@@ -31,7 +31,17 @@
 		LEFT OUTER JOIN 
 			role_name rn ON rn.role_no = ru.role_no 
 		WHERE 
-			user_id = #{userId}
+			<choose>
+				<when test="userId != null and userId != ''">
+					user_id = #{userId}
+				</when>
+				<when test="userName != null and userName != ''">
+					user_name = #{userName}
+				</when>
+				<when test="userNo != null and userNo > 0">
+					user_no = #{userNo}
+				</when>
+			</choose>
 	</select>
 	
 </mapper>

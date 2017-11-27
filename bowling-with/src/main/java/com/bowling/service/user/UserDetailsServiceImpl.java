@@ -24,7 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		
-		UserVO user = userMapper.getUser(userId);
+		UserVO _user = new UserVO();
+		
+		_user.setUserId(userId);
+		
+		UserVO user = userMapper.getUser(_user);
 		
 		System.out.println("userId : " + user.getUserId());
 		System.out.println("userPassword : " + user.getUserPassword());
