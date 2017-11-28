@@ -3,7 +3,24 @@
 
 <mapper namespace="com.bowling.mapper.game.GameMapper">
 	
-	<select id="getGameInfoByMain" parameterType="com.bowling.domain.game.GameVO" resultType="com.bowling.domain.game.GameVO">
+	<resultMap type="com.bowling.domain.game.GameVO" id="gameMap">
+		<result property="userNo" column="user_no"></result>
+		<result property="userId" column="user_id"></result>
+		<result property="userName" column="user_name"></result>
+		<result property="userGender" column="user_gender"></result>
+		<result property="userNickname" column="user_nickname"></result>
+		<result property="userNickimage" column="user_nickimage"></result>
+		<result property="userRole" column="user_role"></result>
+		<result property="clubName" column="club_name"></result>
+		<result property="gameAvg" column="game_avg"></result>
+		<result property="gameCount" column="game_count"></result>
+		<result property="gameAllCover" column="game_all_cover"></result>
+		<result property="gameTwohundredOver" column="game_twohundred_over"></result>
+		<result property="gamePerfect" column="game_perfect"></result>
+		<result property="gameHigh" column="game_high"></result>
+	</resultMap>
+	
+	<select id="getGameInfoByMain" parameterType="com.bowling.domain.game.GameVO" resultMap="gameMap">
 		SELECT
 			user_name,
 			club_name,

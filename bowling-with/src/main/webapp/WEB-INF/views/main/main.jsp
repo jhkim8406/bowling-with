@@ -75,7 +75,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-2">
-                    <h3 class="page-header">${mainInfo.user_name } [${mainInfo.club_name }]</h3>
+                    <h3 class="page-header">${mainInfo.userName } [${mainInfo.clubName }]</h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -89,7 +89,7 @@
                                     <div class="medium-s">AVG</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_avg }</div>
+                                    <div class="medium-h">${mainInfo.gameAvg }</div>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                     <div class="medium-s">GAMES</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_count }</div>
+                                    <div class="medium-h">${mainInfo.gameCount }</div>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                     <div class="medium-s">ALL COVER</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_all_cover }</div>
+                                    <div class="medium-h">${mainInfo.gameAllCover }</div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                                     <div class="medium-s">200 OVER</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_twohundred_over }</div>
+                                    <div class="medium-h">${mainInfo.gameTwohundredOver }</div>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                     <div class="medium-s">HIGH</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_high }</div>
+                                    <div class="medium-h">${mainInfo.gameHigh }</div>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                                     <div class="medium-s">PERFECT</div>
                                 </div>
                                 <div class="col-xs-8 text-right">
-                                    <div class="medium-h">${mainInfo.game_perfect}</div>
+                                    <div class="medium-h">${mainInfo.gamePerfect}</div>
                                 </div>
                             </div>
                         </div>
