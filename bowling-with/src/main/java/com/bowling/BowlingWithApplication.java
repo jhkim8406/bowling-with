@@ -18,7 +18,7 @@ public class BowlingWithApplication {
 	}
 	
 	 /*
-     * SqlSessionFactory ¼³Á¤ 
+     * SqlSessionFactory
      */
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{

@@ -63,6 +63,14 @@ body {
 .navbar-top-links .dropdown-alerts {
   margin-left: -123px;
 }
+/*신규 추가*/
+.navbar-top-links .dropdown-list {
+  margin-left: 5px;
+}
+.navbar-top-links .dropdown-user-new {
+  margin-left: 5px;
+}
+/*신규 추가*/
 .navbar-top-links .dropdown-user {
   right: 0;
   left: auto;

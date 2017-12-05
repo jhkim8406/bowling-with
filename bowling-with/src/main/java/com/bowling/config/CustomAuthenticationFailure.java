@@ -16,6 +16,8 @@ public class CustomAuthenticationFailure implements AuthenticationFailureHandler
     	
     	System.out.println("failure");
     	
+    	System.out.println("username : " + request.getParameter("username"));
+    	
         request.setAttribute("username", request.getParameter("username"));
         request.getRequestDispatcher("/loginError").forward(request, response);
     }

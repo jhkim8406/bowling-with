@@ -44,6 +44,22 @@
 			</choose>
 	</select>
 	
+	<select id="getUserAllList" parameterType="com.bowling.mapper.user.UserMapper" resultMap="userMap">
+		SELECT
+			*
+		FROM
+			user
+	</select>
+	
+	<update id="updateUserPassword" parameterType="com.bowling.mapper.user.UserMapper">
+		UPDATE
+			user
+		SET
+			user_password = #{userPassword}	
+		WHERE
+			user_no = #{userNo}
+	</update>
+	
 </mapper>
 
 

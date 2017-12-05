@@ -1,19 +1,11 @@
 package com.bowling.service.user;
 
-import javax.annotation.Resource;
-
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bowling.domain.user.UserVO;
-import com.bowling.mapper.user.UserMapper;
-
-@Service("com.bowling.service.UserService")
-public class UserService {
+public interface UserService extends UserDetailsService {
+	public PasswordEncoder passwordEncoder();
 	
-	@Resource(name="com.bowling.mapper.user.UserMapper")
-	UserMapper userMapper;
-	
-	public UserVO getUserNoByName(UserVO userVO) throws Exception {
-		return userMapper.getUser(userVO);
-	}
+	public void UserPasswordUpdate();
 }
