@@ -13,7 +13,7 @@ import com.bowling.service.user.UserService;
 public class UserController {
 	
 	@Autowired 
-	private	UserService userService;
+	private	UserService userService; 
 	
 	@RequestMapping("/login")
 	private String Login(Model model) throws Exception {
