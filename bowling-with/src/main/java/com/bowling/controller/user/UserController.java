@@ -24,7 +24,7 @@ public class UserController {
 			returnUrl = "redirect:/main";
 		}
 		
-		return returnUrl;
+		return returnUrl; 
 	}
 	
 	@RequestMapping("/update/password")
