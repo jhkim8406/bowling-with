@@ -7,10 +7,10 @@
 	<head>
 		<tiles:insertAttribute name="header" />
 	</head>
-<body>
-	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	<tiles:insertAttribute name="menu" />
-	<tiles:insertAttribute name="body" />
-	<tiles:insertAttribute name="footer" />
-</body>
+	<body>
+		<c:set var="path" value="${pageContext.request.contextPath }"/>
+		<tiles:insertAttribute name="menu" />
+		<tiles:insertAttribute name="body" />
+		<tiles:insertAttribute name="footer" />
+	</body>
 </html>
