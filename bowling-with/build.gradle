@@ -42,6 +42,7 @@ dependencies {
 	compile('org.projectlombok:lombok:1.16.18')
 	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 	compile('javax.servlet:jstl:1.2')
+	compile('org.apache.tiles:tiles-jsp:3.0.5')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

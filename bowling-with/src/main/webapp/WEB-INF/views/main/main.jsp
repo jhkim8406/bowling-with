@@ -54,10 +54,30 @@
                         <i class="fa fa-list fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-list">
-                        <li><a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> My Record</a>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> My Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> My Daily Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> My Monthly Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> My Yearly Record</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> Club Record</a>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> Club Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> Club Daily Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> Club Monthly Record</a>
+                        </li>
+                        <li>
+                        	<a href="#"><i class="glyphicon glyphicon-equalizer fa-fw"></i> Club Yearly Record</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -81,7 +101,9 @@
             </ul>
             <!-- /.navbar-top-links -->
         </nav>
-
+	</div>
+	
+	<div id="wrapper">
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-2">
