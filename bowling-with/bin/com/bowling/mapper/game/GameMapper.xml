@@ -18,9 +18,11 @@
 		<result property="gameTwohundredOver" column="game_twohundred_over"></result>
 		<result property="gamePerfect" column="game_perfect"></result>
 		<result property="gameHigh" column="game_high"></result>
+		<result property="shopName" column="shop_name"></result>
+		<result property="shopNo" column="shop_no"></result>
 	</resultMap>
 	
-	<select id="getGameInfoByMain" parameterType="com.bowling.domain.game.GameVO" resultMap="gameMap">
+	<select id="getGameInfoByUser" parameterType="com.bowling.domain.user.UserVO" resultMap="gameMap">
 		SELECT
 			user_name,
 			club_name,
@@ -57,6 +59,36 @@
 			user_id = #{userId}
 		GROUP BY
 			ur.user_name, cb.club_name, gm.user_no, gm.club_no;
+	</select>
+	
+	<select id="getAvgScoreByUserByShop" parameterType="com.bowling.domain.user.UserVO" resultMap="gameMap">
+		SELECT
+			shop_name
+		    , shop_no
+		    , game_avg
+		    , game_count
+		FROM
+		(
+			SELECT
+				shop_name
+				, sp.shop_no
+				, TRUNCATE(AVG(game_score),2) AS game_avg
+				, COUNT(game_score) AS game_count
+			FROM
+				user ur
+			INNER JOIN
+				game gm ON ur.user_no = gm.user_no
+			INNER JOIN
+				shop sp ON gm.shop_no = sp.shop_no
+			WHERE
+				ur.user_id = #{userId}
+			GROUP BY
+				shop_no, shop_name
+		) AS T1
+		ORDER BY
+			game_count DESC
+		LIMIT
+			10
 	</select>
 	
 	<insert id="insertScoreByExcel" parameterType="com.bowling.domain.game.GameVO">

@@ -18,7 +18,7 @@ import com.bowling.domain.user.UserVO;
 import com.bowling.mapper.user.UserMapper;
 
 @Service
-public class UserDetailsServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 	@Autowired UserMapper userMapper;
 	
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -40,6 +40,7 @@ public class UserDetailsServiceImpl implements UserService {
         return user;
 	}
 	
+	@Override
 	public void UserPasswordUpdate() {
 		
 		List<UserVO> userList = userMapper.getUserAllList();

@@ -1,23 +1,15 @@
 package com.bowling.service.game;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.bowling.domain.game.GameVO;
-import com.bowling.mapper.game.GameMapper;
+import com.bowling.domain.user.UserVO;
 
-@Service("com.bowling.service.GameService")
-public class GameService {
+public interface GameService {
 
-	@Resource(name="com.bowling.mapper.game.GameMapper")
-	GameMapper gameMapper;
+	GameVO getGameInfoByUser(UserVO userVO);
 	
-	public void insertScoreByExcel(GameVO userVO) throws Exception {
-		gameMapper.insertScoreByExcel(userVO);
-	}
+	List<GameVO> getAvgScoreByUserByShop(UserVO userVO);
 	
-	public GameVO getGameInfoByMain(GameVO userVO) throws Exception {
-		return gameMapper.getGameInfoByMain(userVO);
-	}
+	void insertScoreByExcel(GameVO userVO);
 }

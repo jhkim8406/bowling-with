@@ -178,7 +178,7 @@ Licensed under the BSD-2-Clause License.
       hideHover: false,
       yLabelFormat: null,
       xLabelAngle: 0,
-      numLines: 5,
+      numLines: 11,
       padding: 25,
       parseTime: true,
       postUnits: '',
@@ -1389,6 +1389,7 @@ Licensed under the BSD-2-Clause License.
       Bar.__super__.constructor.call(this, $.extend({}, options, {
         parseTime: false
       }));
+      t
     }
 
     Bar.prototype.init = function() {
@@ -1409,7 +1410,8 @@ Licensed under the BSD-2-Clause License.
       barColors: ['#0b62a4', '#7a92a3', '#4da74d', '#afd8f8', '#edc240', '#cb4b4b', '#9440ed'],
       barOpacity: 1.0,
       barRadius: [0, 0, 0, 0],
-      xLabelMargin: 50
+      xLabelMargin: 50,
+      maxLabelSize: null
     };
 
     Bar.prototype.calc = function() {
@@ -1602,7 +1604,11 @@ Licensed under the BSD-2-Clause License.
 
     Bar.prototype.drawXAxisLabel = function(xPos, yPos, text) {
       var label;
-      return label = this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
+      var _text = text;
+      if(this.options.maxLabelSize != null) {
+    	  _text = _text.substring(0,this.options.maxLabelSize);
+      }
+      return label = this.raphael.text(xPos, yPos, _text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
     };
 
     Bar.prototype.drawBar = function(xPos, yPos, width, height, barColor, opacity, radiusArray) {
@@ -1631,11 +1637,13 @@ Licensed under the BSD-2-Clause License.
     __extends(Donut, _super);
 
     Donut.prototype.defaults = {
-      colors: ['#0B62A4', '#3980B5', '#679DC6', '#95BBD7', '#B0CCE1', '#095791', '#095085', '#083E67', '#052C48', '#042135'],
+      colors: ['#0B62A4', '#d9534f', '#3980B5', '#679DC6', '#95BBD7', '#B0CCE1', '#095791', '#095085', '#083E67', '#052C48', '#042135'],
       backgroundColor: '#FFFFFF',
       labelColor: '#000000',
       formatter: Morris.commas,
-      resize: false
+      resize: false,
+      order: 'desc',
+      valueType: 'text'
     };
 
     function Donut(options) {
@@ -1657,6 +1665,16 @@ Licensed under the BSD-2-Clause License.
       }
       if (options.data === void 0 || options.data.length === 0) {
         return;
+      }
+      if(options.order === 'desc') {
+    	 this.ord = options.order;
+      } else {
+    	 this.ord = 'asc';
+      }
+      if(options.valueType === 'percent') {
+    	  this.valType = options.valueType;
+      } else {
+    	  this.valType = 'text';
       }
       this.raphael = new Raphael(this.el[0]);
       if (this.options.resize) {
@@ -1702,14 +1720,22 @@ Licensed under the BSD-2-Clause License.
       this.text1 = this.drawEmptyDonutLabel(cx, cy - 10, this.options.labelColor, 15, 800);
       this.text2 = this.drawEmptyDonutLabel(cx, cy + 10, this.options.labelColor, 14);
       max_value = Math.max.apply(Math, this.values);
+      min_value = Math.min.apply(Math, this.values);
       idx = 0;
       _ref2 = this.values;
       _results = [];
       for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
         value = _ref2[_k];
-        if (value === max_value) {
-          this.select(idx);
-          break;
+        if(this.ord === 'desc') {
+	        if (value === max_value) {
+	          this.select(idx);
+	          break;
+	        }
+        } else {
+        	if (value === min_value) {
+   	          this.select(idx);
+   	          break;
+   	        }
         }
         _results.push(idx += 1);
       }
@@ -1764,6 +1790,9 @@ Licensed under the BSD-2-Clause License.
       this.text1.attr({
         transform: "S" + text1scale + "," + text1scale + "," + (text1bbox.x + text1bbox.width / 2) + "," + (text1bbox.y + text1bbox.height)
       });
+      if(this.valType === 'percent') {
+    	  label2 = label2 + '%';
+      }
       this.text2.attr({
         text: label2,
         transform: ''
