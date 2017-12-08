@@ -13,3 +13,6 @@
 <link href="/template/dist/css/sb-admin-2.css" rel="stylesheet">
 <!-- Custom Fonts -->
 <link href="/template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- jQuery -->
+<script src="/template/vendor/jquery/jquery.min.js"></script>
