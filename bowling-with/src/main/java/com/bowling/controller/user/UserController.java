@@ -27,6 +27,12 @@ public class UserController {
 		return returnUrl;
 	}
 	
+	@RequestMapping("/signUp")
+	private String SignUp(Model model) throws Exception {
+		
+		return "login/signUp";
+	}
+	
 	@RequestMapping("/update/password")
 	private void userPasswordUpdate(Model model) throws Exception {
 		userService.UserPasswordUpdate();		
