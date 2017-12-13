@@ -161,7 +161,7 @@
 
 <!-- Morris Charts JavaScript -->
 <script src="/template/vendor/raphael/raphael.min.js"></script>
-<script src="/template/vendor/morrisjs/morris.js"></script>
+<script src="/template/vendor/morrisjs/morris.js?dummy=20171211"></script>
 <script type="text/javascript">
 $(function() {
 	

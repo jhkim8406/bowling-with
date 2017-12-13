@@ -1389,8 +1389,7 @@ Licensed under the BSD-2-Clause License.
       Bar.__super__.constructor.call(this, $.extend({}, options, {
         parseTime: false
       }));
-      t
-    }
+    } 
 
     Bar.prototype.init = function() {
       this.cumulative = this.options.stacked;

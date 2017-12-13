@@ -15,4 +15,4 @@
 <link href="/template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <!-- jQuery -->
-<script src="/template/vendor/jquery/jquery.min.js"></script>
+<script src="/template/vendor/jquery/jquery.js"></script>
