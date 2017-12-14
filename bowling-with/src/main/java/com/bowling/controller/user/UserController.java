@@ -1,6 +1,9 @@
 package com.bowling.controller.user;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,18 @@ public class UserController {
 	private String SignUp(Model model) throws Exception {
 		
 		return "login/signUp";
+	}
+	
+	@RequestMapping("/ajax/signUp")
+	private String SignUpProcByAjax(Model model, HttpServletRequest request) throws Exception {
+		
+		String userId = request.getParameter("userId");
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		
+		
+		return "/main";
 	}
 	
 	@RequestMapping("/update/password")

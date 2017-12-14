@@ -44,6 +44,10 @@
 			</choose>
 	</select>
 	
+	<insert id="insertSignUp" parameterType="com.bowling.mapper.user.UserMapper">
+	
+	</insert>
+	
 	<select id="getUserAllList" parameterType="com.bowling.mapper.user.UserMapper" resultMap="userMap">
 		SELECT
 			*
