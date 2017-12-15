@@ -10,6 +10,10 @@ import com.bowling.domain.user.UserVO;
 public interface UserMapper {
 	public UserVO getUser(UserVO userVO); 
 	
+	public Integer insertUser(UserVO userVO);
+	
+	public void insertUserRole(UserVO userVO);
+	
 	public List<UserVO> getUserAllList();
 	
 	public void updateUserPassword(UserVO userVO);

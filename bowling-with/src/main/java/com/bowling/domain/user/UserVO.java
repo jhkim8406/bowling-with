@@ -19,6 +19,8 @@ public class UserVO {
 	
 	private String userRole;
 	
+	private Integer roleNo;
+	
 	private String userGender;
 	
 	private String userNickname;

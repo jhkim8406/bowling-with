@@ -27,7 +27,12 @@
 			user_name,
 			club_name,
 			TRUNCATE(AVG(game_score),1) AS game_avg,
-            COUNT(*) AS game_count,
+            SUM(
+				CASE
+					WHEN game_score > 0 THEN 1 
+                    ELSE 0
+				END
+			) AS game_count,
             SUM(
 				CASE
 					WHEN game_all_cover = 1 THEN 1 
@@ -49,11 +54,11 @@
             MAX(game_score) AS game_high
 		FROM
 			user ur 
-		INNER JOIN
+		LEFT OUTER JOIN
 			club_member cm ON ur.user_no = cm.user_no
-		INNER JOIN
+		LEFT OUTER JOIN
 			club cb ON cb.club_no = cm.club_no
-		INNER JOIN
+		LEFT OUTER JOIN
 			game gm ON ur.user_no = gm.user_no AND cb.club_no = gm.club_no
 		WHERE
 			user_id = #{userId}
@@ -76,9 +81,9 @@
 				, COUNT(game_score) AS game_count
 			FROM
 				user ur
-			INNER JOIN
+			LEFT OUTER JOIN
 				game gm ON ur.user_no = gm.user_no
-			INNER JOIN
+			LEFT OUTER JOIN
 				shop sp ON gm.shop_no = sp.shop_no
 			WHERE
 				ur.user_id = #{userId}

@@ -5,12 +5,13 @@
 			<div class="col-lg-4">
             	<div class="panel panel-default">
                 	<div class="panel-heading" style="text-align:center;">
-                            볼링위드 회원가입
+                            <h4><b>볼링위드 회원가입</b></h4>
                     </div>
                     <div class="panel-body">
 						<div class="row">
 							<div class="col-lg-6">
-								<form role="form" method="post">
+								<form role="form" method="post" name="form_signup">
+									<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 									<div class="form-group">
 										<label>이름</label>
 		                                <input class="form-control" placeholder="이름" name="username" id="username" type="text" autofocus>
@@ -19,7 +20,7 @@
 		                            </div>
 									<div class="form-group">
 										<label>아이디 (이메일)</label>
-			                            <input class="form-control" placeholder="아이디 (이메일)" name="userId" id="userId" type="text" autofocus>
+			                            <input class="form-control" placeholder="아이디 (이메일)" name="userId" id="userId" type="text">
 			                            <label class="text-danger" id="label_warning_id" style="display:none; font-size:12px; color:#ff1914; margin-top:10px; margin-bottom:-10px;">필수 정보입니다.</label>
 			                            <hr style="width:100%; border:1 solid #ccc;">
 		                            </div>
@@ -99,7 +100,22 @@
 	
 	function fn_submit() {
 		if(fn_validation_value()) {
-			alert("폼 전송");
+			
+			var query = $("form[name=form_signup]").serialize();
+			
+			$.ajax({
+				type: "POST",
+				url: "/user/ajax/signUpProc",
+				cache: false,	   
+				data: query,
+				success: function() {
+					alert("회원가입이 완료 되었습니다.");
+					location.href="/login";
+				},
+				error: function(xhr, status, error) {
+					alert("회원가입이 실패 하였습니다. 관리자에게 문의해주세요.");
+				}
+			})
 		}
 		else {
 			return false;

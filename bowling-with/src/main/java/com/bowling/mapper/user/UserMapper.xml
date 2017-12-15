@@ -12,6 +12,7 @@
 		<result property="userNickname" column="user_nickname"></result>
 		<result property="userNickimage" column="user_nickimage"></result>
 		<result property="userRole" column="user_role"></result>
+		<result property="userRoleNo" column="user_role_no"></result>
 	</resultMap>
 	
 	<select id="getUser" parameterType="com.bowling.mapper.user.UserMapper" resultMap="userMap">
@@ -44,8 +45,19 @@
 			</choose>
 	</select>
 	
-	<insert id="insertSignUp" parameterType="com.bowling.mapper.user.UserMapper">
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="userNo" parameterType="com.bowling.mapper.user.UserMapper">
+		INSERT INTO
+			user (user_id, user_password, user_name, user_gender, user_nickname, user_nickimage, user_regist_date)
+		VALUES
+			(#{userId}, #{userPassword}, #{userName}, #{userGender}, #{userNickname}, #{userNickimage}, NOW())
+			
+	</insert>
 	
+	<insert id="insertUserRole" parameterType="com.bowling.mapper.user.UserMapper">
+		INSERT INTO
+			role_user (user_no, role_no)
+		VALUES
+			(#{userNo}, #{roleNo})
 	</insert>
 	
 	<select id="getUserAllList" parameterType="com.bowling.mapper.user.UserMapper" resultMap="userMap">

@@ -41,6 +41,25 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public Integer insertUser(UserVO userVO) {
+		
+		userMapper.insertUser(userVO);
+		
+		int result = userVO.getUserNo(); 
+		
+		if(result > 0) {
+			
+			userVO.setRoleNo(2);
+			
+			userMapper.insertUserRole(userVO);
+		}
+		
+		System.out.println("userNo : " + userVO.getUserNo());
+		
+		return result;
+	}
+	
+	@Override
 	public void UserPasswordUpdate() {
 		
 		List<UserVO> userList = userMapper.getUserAllList();

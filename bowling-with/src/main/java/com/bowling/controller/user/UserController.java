@@ -3,12 +3,15 @@ package com.bowling.controller.user;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bowling.domain.user.UserVO;
 import com.bowling.service.user.UserService;
 
 @Controller
@@ -36,16 +39,30 @@ public class UserController {
 		return "login/signUp";
 	}
 	
-	@RequestMapping("/ajax/signUp")
+	@RequestMapping(value="/ajax/signUpProc", method=RequestMethod.POST)
+	@ResponseBody
 	private String SignUpProcByAjax(Model model, HttpServletRequest request) throws Exception {
 		
 		String userId = request.getParameter("userId");
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
+		String userGender = request.getParameter("user_gender");
 		
+		String _password = new BCryptPasswordEncoder().encode(password);
 		
+		UserVO userVO = new UserVO();
 		
-		return "/main";
+		userVO.setUserId(userId);
+		userVO.setUserName(userName);
+		userVO.setUserPassword(_password);
+		userVO.setUserGender(userGender);
+		userVO.setUserNickname(userName);
+		userVO.setUserNickimage("");
+		userVO.setUserRole("MEMBER");
+		
+		String result = Integer.toString(userService.insertUser(userVO));
+		
+		return result;
 	}
 	
 	@RequestMapping("/update/password")
